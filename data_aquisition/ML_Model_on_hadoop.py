@@ -1,3 +1,29 @@
+"""
+This script combines IoT and machine learning for real-time data classification and alerting:
+
+1. MQTT Connection:
+   - Connects to the HiveMQ public MQTT broker.
+   - Subscribes to two topics:
+     - 'main/OMIoT/team/valores_instantaneos': Receives instantaneous measurements.
+     - 'main/OMIoT/team/valores_medios': Receives averaged measurements.
+
+2. Machine Learning Model:
+   - Uses a K-Nearest Neighbors (KNN) classifier with 4 neighbors.
+   - Trains the model on a dataset ('treinamento.csv') with features like temperature and location.
+   - Predicts the class (e.g., 'Alerta') for incoming data.
+
+3. Real-Time Classification and Alerts:
+   - Processes incoming MQTT messages.
+   - If the classification result is 'Alerta', publishes an 'on' alert to 'main/OMIoT/team/alerta'.
+   - Otherwise, publishes 'off'.
+
+4. Data Logging:
+   - Logs raw instantaneous and average data into respective CSV files for further analysis.
+
+5. Long-Running Execution:
+   - Runs for 15 days continuously, processing messages and publishing alerts as needed.
+"""
+
 #! /usr/bin/env python
 import paho.mqtt.client as mqtt
 import time
