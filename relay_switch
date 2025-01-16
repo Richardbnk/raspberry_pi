@@ -1,0 +1,31 @@
+"""
+This script demonstrates basic control of a GPIO pin on a Raspberry Pi using the RPi.GPIO library. It sets up a specific GPIO pin in output mode and toggles its state.
+
+1. **GPIO Configuration:**
+   - `gpio.setmode(gpio.BOARD)`:
+     - Configures the GPIO numbering mode to BOARD, which uses the physical pin numbering on the Raspberry Pi header.
+   - `gpio.setup(32, gpio.OUT)`:
+     - Sets GPIO pin 32 (physical pin) as an output pin.
+
+2. **Pin Control:**
+   - `gpio.output(32, 1)`:
+     - Activates the GPIO pin (sets it to HIGH), turning on a connected device (e.g., an LED or relay).
+   - `gpio.output(32, 0)`:
+     - Deactivates the GPIO pin (sets it to LOW), turning off the connected device.
+
+3. **Use Case:**
+   - This script can be used to control devices like LEDs, relays, or any other peripherals connected to the GPIO pins.
+
+**Note:**
+   - Ensure you have the appropriate hardware connected to pin 32 before running this script.
+   - Add cleanup (`gpio.cleanup()`) at the end of the script to reset the GPIO pins to their default state.
+"""
+
+#! /usr/bin/env python
+import RPi.GPIO as gpio
+
+gpio.setmode(gpio.BOARD)
+gpio.setup(32, gpio.OUT)
+
+gpio.output(32, 1) #Ligando o pino 32
+gpio.output(32, 0) #desligando o pino 32
