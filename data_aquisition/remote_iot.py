@@ -1,3 +1,39 @@
+"""
+IoT Application for Environmental Monitoring using Raspberry Pi and MQTT
+
+This script collects real-time environmental data using a DHT11 sensor, processes the data,
+and communicates with an MQTT broker to publish measurements and receive alerts. Key functionalities include:
+
+1. **Device Identification:**
+   - The device ID is set to the Raspberry Pi's Wi-Fi MAC address, ensuring a unique identifier for each device.
+
+2. **Real-Time Data Collection:**
+   - Periodically reads temperature and humidity from a DHT11 sensor.
+   - Appends the data to a DataFrame for instantaneous values.
+
+3. **Data Averaging:**
+   - Calculates hourly averages (e.g., temperature min/max, latitude, longitude) from the last 60 measurements.
+   - Publishes the average values to a separate MQTT topic.
+
+4. **MQTT Communication:**
+   - Connects to the HiveMQ public MQTT broker.
+   - Subscribes to the "alerta" topic to listen for alerts (e.g., turn on/off an LED).
+   - Publishes both instantaneous and averaged data to specific MQTT topics.
+
+5. **LED Control:**
+   - Listens for alerts via MQTT. If an "on" message is received, it lights up an LED; otherwise, it turns it off.
+
+6. **Data Logging:**
+   - Saves instantaneous and averaged data locally as CSV files for further analysis.
+
+7. **Location Randomization:**
+   - Adds a small random offset to the latitude and longitude every day to simulate slight location shifts.
+
+This script is designed to operate continuously, with MQTT handling real-time communication and the Raspberry Pi managing local data processing and hardware control.
+"""
+
+
+
 # The device ID has been set to match the Raspberry Pi's Wi-Fi MAC Address, 
 # eliminating the need for using a hash code (MD5) and automatically adapting to each device.
 
